@@ -1,0 +1,70 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+vector<vector<short int>>w;
+
+int sum,summax;
+
+int main()
+{
+    short int cer,k,maxi=0;
+    cin>>k;
+    int n;
+    cin>>n;
+    w.resize(10005);
+    short int a,secv=1,nr;
+    cin>>a;
+    for(int i=0;i<n-1;i++)
+    {
+        short int x;
+        cin>>x;
+        maxi=max(maxi,x);
+        if(a==x)
+        {
+            secv++;
+        }
+        else
+        {
+            w[a].push_back(secv);
+            secv=1;
+        }
+        a=x;
+    }
+    cin>>cer;
+    for(int i=0;i<maxi+1;i++)
+    {
+        sum=0;
+        if(w[i].size()>0)
+        {
+            sort(w[i].begin(),w[i].end(),greater<int>());
+            for(int j=0;j<w[i].size()&&j<k;j++)
+            {
+                sum+=w[i][j];
+            }
+            //cout<<sum<<" "<<i<<"\n";
+            if(summax<sum)
+            {
+                summax=sum;
+                nr=i;
+            }
+            else if(summax==sum)
+            {
+                if(i>nr)
+                {
+                    nr=i;
+                }
+            }
+        }
+    }
+    if(cer==2)
+    {
+        cout<<nr;
+    }
+    else
+    {
+        cout<<summax;
+    }
+    return 0;
+}
